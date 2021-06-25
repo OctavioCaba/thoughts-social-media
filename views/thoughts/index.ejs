@@ -1,0 +1,36 @@
+<%- include("../includes/header") %>
+<%- include("../includes/sidebar") %>
+
+<div class="container">
+  <nav class="home-navbar">
+    <ul>
+      <li>
+        <a id="home-selector" href="/">Home</a>
+      </li>
+      <li>
+        <a id="home-selector" class="active" href="/thoughts">Thoughts</a>
+      </li>
+      <li>
+        <a id="home-selector" href="/ponders">Ponders</a>
+      </li>
+    </ul>
+  </nav>
+  <section>
+    <div>
+      <ul>
+        <% thoughts.forEach(thought => { %>
+          <li>
+            <p><%= thought.content %></p>
+            <% if (userId === thought.user.id) { %>
+              <form action="/thoughts/<%= thought.id %>?_method=DELETE" method="post">
+                <input type="submit" value="Delete thought">
+              </form>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<%- include("../includes/footer") %>

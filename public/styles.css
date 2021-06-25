@@ -1,0 +1,219 @@
+html {
+  min-width: 100%;
+  min-height: 100%;
+  background: rgb(0, 4, 40);
+  background: linear-gradient(180deg, rgba(0, 4, 40, 1) 0%, rgba(0, 78, 146, 1) 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* UNO
+  background: rgb(19, 84, 122);
+  background: linear-gradient(180deg, rgba(19, 84, 122, 1) 0%, rgba(128, 208, 199, 1) 100%); */
+  /* DOS
+  background: rgb(255, 236, 210);
+  background: linear-gradient(180deg, rgba(255, 236, 210, 1) 0%, rgba(252, 182, 159, 1) 100%); */
+  /* TRES
+  background: rgb(253, 252, 251);
+  background: linear-gradient(180deg, rgba(253, 252, 251, 1) 0%, rgba(226, 209, 195, 1) 100%); */
+  /* CUATRO
+  background: rgb(255, 0, 132);
+  background: linear-gradient(180deg, rgba(255, 0, 132, 1) 21%, rgba(51, 0, 27, 1) 100%); */
+  /* QUINTO */
+  /* background: rgb(11, 135, 147);
+  background: linear-gradient(180deg, rgba(11, 135, 147, 1) 54%, rgba(54, 0, 51, 1) 100%); */
+  /* SEXTO
+  background: rgb(148, 142, 153);
+  background: linear-gradient(180deg, rgba(148, 142, 153, 1) 0%, rgba(46, 20, 55, 1) 100%); */
+  /* SEPTIMO
+  background: rgb(238, 156, 167);
+  background: linear-gradient(180deg, rgba(238, 156, 167, 1) 0%, rgba(255, 221, 225, 1) 100%); */
+  /* OCTAVO
+  background: rgb(0, 4, 40);
+  background: linear-gradient(180deg, rgba(0, 4, 40, 1) 0%, rgba(0, 78, 146, 1) 100%); */
+  /* NOVENO
+  background: rgb(0, 78, 146);
+  background: linear-gradient(180deg, rgba(0, 78, 146, 1) 0%, rgba(0, 4, 40, 1) 100%); */
+  font-family: 'Poppins', 'Roboto Mono', 'Noto Sans JP', sans-serif, monospace;
+  text-align: center;
+  color: #fff;
+  height: 120vh;
+}
+
+.sidebar {
+  border-right: 1px solid #fff;
+  width: 25%;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+}
+
+.container {
+  position: absolute;
+  right: 0;
+  width: 75%;
+}
+
+.container ul {
+  list-style: none;
+}
+
+.home-navbar {
+  border-bottom: 1px solid #999;
+}
+
+.home-navbar ul {
+  width: 50%;
+  margin: 0 auto;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-navbar ul li {
+  padding: 10px 0;
+}
+
+.home-navbar #home-selector {
+  padding: 15px;
+  border-radius: 15px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.home-navbar .active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.home-navbar #home-selector:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.home-combine {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.home-combine ul {
+  list-style: none;
+}
+
+/* THOUGHTS */
+.home-thoughts-ponders {
+  width: 70%;
+  background-color: rgba(255, 255, 255, 0.4);
+  align-items: center;
+  margin: 10px auto;
+}
+
+.home-thoughts-ponders a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.home-thoughts-ponders a:hover {
+  text-decoration: underline;
+}
+
+/* THOUGHT PAGE */
+.thought-detail {
+  padding: 20px 0;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  align-items: center;
+  margin: 10px auto;
+}
+
+.thought-detail h3 {
+  margin-bottom: 20px;
+}
+
+.thought-detail a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.thought-detail a:hover {
+  text-decoration: underline;
+}
+
+.thought-comments {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.thought-comments .comments-list {
+  margin-top: 20px;
+}
+
+/* PONDER PAGE */
+/* LOGIN REGISTER FROM */
+.login-register-container {
+  font-size: 14px;
+}
+
+.login-register-container form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 40%;
+  font-size: 1.3em;
+  color: #999;
+}
+
+.login-register-container form input:focus {
+  color: #000;
+}
+
+.login-register-container form input:last-of-type {
+  margin-top: 20px;
+  padding: 10px;
+  width: 30%;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  color: #000;
+}
+
+.login-register-container form input:last-of-type:hover {
+  background-color: transparent;
+  cursor: pointer;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+.login-register-link {
+  text-decoration: none;
+  font-size: 1.2em;
+  color: #000;
+}
+
+.login-register-link:hover {
+  text-decoration: underline;
+}
+
+.login-container {
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 60%;
+  padding: 20px 0;
+  box-shadow: 0px 0px 30px black;
+  border-radius: 30px;
+}
+
+.login-container h1,
+.login-container a {
+  margin-bottom: 20px;
+  color: #fff;
+}

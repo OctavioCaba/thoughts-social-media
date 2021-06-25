@@ -1,0 +1,12 @@
+<aside class="sidebar">
+  <ul>
+    <li><%= user.name %></li>
+    <li>
+      <p>
+        <form action="/users/session/login?_method=DELETE" method="post">
+          <input type="submit" value="Logout">
+        </form>
+      </p>
+    </li>
+  </ul>
+</aside>

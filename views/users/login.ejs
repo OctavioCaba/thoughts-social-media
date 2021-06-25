@@ -1,0 +1,20 @@
+<%- include("../includes/header") %>
+
+<div class="login-register-container">
+  <div class="login-container">
+    <h1>Login</h1>
+    <form action="/users/session/login" method="post">
+      <input type="email" name="email" id="email" placeholder="Email" autofocus required>
+      <br />
+      <input type="password" name="password" id="password" placeholder="Password" required>
+      <br />
+      <input type="submit" value="Login">
+    </form>
+    <small>or</small>
+    <p>
+      <a class="login-register-link" href="/users/registrate">Registrate</a>
+    </p>
+  </div>
+</div>
+
+<%- include("../includes/footer") %>

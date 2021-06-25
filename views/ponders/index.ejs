@@ -1,0 +1,47 @@
+<!--
+<form action="/ponders" method="post">
+  <input type="text" name="title" id="title" placeholder="Ponder's title..." required>
+  <br />
+  <textarea name="content" id="content" placeholder="Ponder's body..." required></textarea>
+  <br />
+  <input type="submit" value="Post ponder">
+</form> -->
+
+<%- include("../includes/header") %>
+<%- include("../includes/sidebar") %>
+
+<div class="container">
+  <nav class="home-navbar">
+    <ul>
+      <li>
+        <a id="home-selector" href="/">Home</a>
+      </li>
+      <li>
+        <a id="home-selector" href="/thoughts">Thoughts</a>
+      </li>
+      <li>
+        <a id="home-selector" class="active" href="/ponders">Ponders</a>
+      </li>
+    </ul>
+  </nav>
+  <section>
+    <div>
+      <ul>
+        <% ponders.forEach(ponder => { %>
+          <li>
+            <h3><%= ponder.title %></h3>
+            <p><%= ponder.content %></p>
+            <small><em>By: <%= ponder.user.nickname %></em></small>
+            <% if (ponder.user.id === userId) { %>
+              <form action="/ponders/<%= ponder.id %>?_method=DELETE" method="post">
+                <input type="submit" value="Delete ponder">
+              </form>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<%- include("../includes/footer") %>

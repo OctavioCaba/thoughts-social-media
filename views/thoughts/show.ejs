@@ -1,0 +1,25 @@
+<%- include("../includes/header") %>
+<%- include("../includes/sidebar") %>
+
+<div class="container">
+  <div class="thought-detail">
+    <h3><%= thought.content %></h3>
+    <small class="author"><em>
+      By: <a href="#"><%= thought.user.nickname %></a>
+    </em></small>
+    <small><%= thoughtCreatedAt %></small>
+  </div>
+  <hr />
+  <section class="thought-comments">
+    <span>Comments (<%= comments.length %>)</span>
+    <div class="comments-list">
+      <% for(let i = 0; i < comments.length; i++) { %>
+        <p>
+          <strong><%= comments[i].user.name %></strong>: <%= comments[i].content %> - <%= commentsCreatedAt[i] %>
+        </p>
+      <% } %>
+    </div>
+  </section>
+</div>
+
+<%- include("../includes/footer") %>
