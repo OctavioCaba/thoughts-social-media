@@ -20,14 +20,8 @@ module.exports = {
         } else {
           res.send('Wrong credentials');
         }
-      }).catch(err => {
-        res.json(err);
-        console.error(err);
-      });
-    }).catch(err => {
-      res.json(err);
-      console.log(err);
-    });
+      }).catch(err => console.error(err));
+    }).catch(err => console.log(err));
   },
   showLogin: function(req, res) {
     if (req.session.userId) return res.redirect('/');
@@ -36,16 +30,14 @@ module.exports = {
   },
   login: function(req, res) {
     User.login(req.body.email, req.body.password).then(user => {
+
       if (user) {
         req.session.userId = user.id;
         res.redirect('/');
       } else {
         res.send('<h1>No se pudo crear</h1>');
       }
-    }).catch(err => {
-      res.json(err);
-      console.error(err);
-    });
+    }).catch(err => console.error(err));
   },
   destroySession: function(req, res) {
     req.session.destroy(function() {

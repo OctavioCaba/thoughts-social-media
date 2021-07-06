@@ -9,17 +9,32 @@ const homeRoutes = require('./routes/home_routes');
 const usersRoutes = require('./routes/users_routes');
 const thoughtsRoutes = require('./routes/thoughts_routes');
 const pondersRoutes = require('./routes/ponders_routes');
+const Sequelize = require('sequelize');
+const db = new Sequelize('red-social-pensamientos', 'root', '', {
+  dialect: "mysql"
+});
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+let sessionStore = new SequelizeStore({
+  db: db,
+  checkExpirationInterval: 15 * 60 * 1000,
+  expiration: 7 * 24 * 60 * 60 * 1000
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+
 app.use(session({
   secret: ['tedguert8h6gd63s5gd1f3h', 'fhj16adfg4j6adgf51j3a6dgf8j7'],
   saveUninitialized: false,
-  resave: false
+  resave: false,
+  store: sessionStore
 }));
+sessionStore.sync();
+
 app.use(findUserMiddleware);
 app.use(authUserMiddleware);
 

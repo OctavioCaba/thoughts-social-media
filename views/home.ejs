@@ -31,8 +31,10 @@
       <ul>
         <% ponders.forEach(ponder => { %>
           <li class="home-thoughts-ponders">
-            <h4><%= ponder.title %></h4>
-            <p><%= ponder.content %></p>
+            <a href="/ponders/<%= ponder.id %>">
+              <h4><%= ponder.title %></h4>
+              <p><%= ponder.content %></p>
+            </a>
           </li>
         <% }) %>
       </ul>

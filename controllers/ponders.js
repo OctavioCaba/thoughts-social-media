@@ -1,4 +1,9 @@
 const Ponder = require('../models').Ponder;
+const PonderComments = require('../models').PonderComments;
+const PonderLikes = require('../models').PonderLikes;
+const moment = require('moment');
+
+const getDateWithoutTime = date => moment(date).format('YYYY-MM-DD');
 
 module.exports = {
   index: function(req, res) {
@@ -20,6 +25,40 @@ module.exports = {
       res.json(err);
       console.log(err);
     });
+  },
+  show: function(req, res) {
+    let relativeCommentTimeArray = [];
+
+    Ponder.findByPk(req.params.id, { include: 'user' }).then(ponder => {
+      let relativePonderTime = moment(getDateWithoutTime(ponder.createdAt)).fromNow();
+
+      PonderLikes.findAll({
+        where: { ponderId: req.params.id },
+        include: 'user'
+      }).then(likes => {
+
+        PonderComments.findAll({
+          where: { ponderId: req.params.id },
+          include: 'user'
+        }).then(comments => {
+          comments.forEach(comment => {
+            let relativeCommentTime = moment(getDateWithoutTime(comment.createdAt)).fromNow();
+            relativeCommentTimeArray.push(relativeCommentTime);
+          });
+
+          res.render('ponders/show', {
+            ponder,
+            ponderCreatedAt: relativePonderTime,
+            userId: req.session.userId,
+            title: 'Ponder',
+            user: req.user,
+            likes,
+            comments,
+            commentsCreatedAt: relativeCommentTimeArray
+          });
+        }).catch(err => console.log(err));
+      }).catch(err => console.log(err));
+    }).catch(err => console.log(err));
   },
   destroy: function(req, res) {
     Ponder.destroy({

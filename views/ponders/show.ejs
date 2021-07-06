@@ -2,14 +2,14 @@
 <%- include("../includes/sidebar") %>
 
 <div class="container">
-  <!-- <i class="fas fa-cloud"></i> -->
-  <div class="thought-detail">
-    <p><%= thought.content %></p>
+  <div class="thought-detail ponder-detail">
+    <h2><%= ponder.title %></h2>
+    <p><%= ponder.content %></p>
     <div class="detail-footer">
       <small class="author"><em>
-        By: <a href="#"><%= thought.user.nickname %></a>
+        By: <a href="#"><%= ponder.user.nickname %></a>
       </em></small>
-      <small>Thought <%= thoughtCreatedAt %></small>
+      <small>Pondered <%= ponderCreatedAt %></small>
     </div>
   </div>
 
@@ -26,10 +26,10 @@
     <% }) %>
 
     <% if (userLike) { %>
-      <i class="fas fa-heart" data-page-name="thoughts" data-thought-id="<%= thought.id %>" data-like-id="<%= likeId %>" id="fa-heart"></i>
+      <i class="fas fa-heart" data-page-name="ponders" data-thought-id="<%= ponder.id %>" data-like-id="<%= likeId %>" id="fa-heart"></i>
       <small>You liked it</small>
     <% } else { %>
-      <i class="far fa-heart" data-page-name="thoughts" data-thought-id="<%= thought.id %>" id="fa-heart"></i>
+      <i class="far fa-heart" data-page-name="ponders" data-thought-id="<%= ponder.id %>" id="fa-heart"></i>
     <% } %>
     <br />
     <span>Likes (<%= likes.length %>)</span>
@@ -41,10 +41,10 @@
       <% for(let i = 0; i < comments.length; i++) { %>
         <div class="each-comment">
           <p>
-            <strong><%= comments[i].user.name %></strong>: <%= comments[i].content %> - <%= commentsCreatedAt[i] %>
+            <strong><%= comments[i].user.name %></strong><small>@<%= comments[i].user.nickname %></small>: <%= comments[i].content %> - <%= commentsCreatedAt[i] %>
           </p>
           <% if (comments[i].user.id === userId) { %>
-            <form action="/thoughts/<%= thought.id %>/comment/<%= comments[i].id %>?_method=DELETE" method="post" class="delete-comment-button">
+            <form action="/ponders/<%= ponder.id %>/comment/<%= comments[i].id %>?_method=DELETE" method="post" class="delete-comment-button">
               <input type="hidden" name="comment_id" value="<%= comments[i].id %>">
               <input type="submit" value="Delete comment">
             </form>
@@ -55,11 +55,12 @@
   </section>
 
   <section class="make-comment">
-    <form action="/thoughts/<%= thought.id %>" method="post">
+    <form action="/ponders/<%= ponder.id %>" method="post">
       <input type="text" class="comment-input" name="comment_input" id="comment_input" placeholder="Write a comment..." required>
       <input type="submit" class="comment-post-button" value="Post comment">
     </form>
   </section>
+
 </div>
 
 <%- include("../includes/footer") %>

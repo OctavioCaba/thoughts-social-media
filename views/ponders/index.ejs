@@ -24,16 +24,30 @@
       </li>
     </ul>
   </nav>
+
+  <button id="newthought-form-opener" class="newthought-form-opener">New ponder</button>
+  <section id="new-ponder-section" class="new-thought-section no-show">
+    <form action="/thoughts" method="post">
+      <input type="text" name="title" id="title" placeholder="Ponder's title..." required>
+      <br />
+      <textarea name="content" id="content" cols="30" rows="5" placeholder="Ponder's body..." required></textarea>
+      <br />
+      <input type="submit" class="send-thought" value="Post ponder">
+    </form>
+  </section>
+
   <section>
     <div>
       <ul>
         <% ponders.forEach(ponder => { %>
-          <li>
-            <h3><%= ponder.title %></h3>
-            <p><%= ponder.content %></p>
-            <small><em>By: <%= ponder.user.nickname %></em></small>
+          <li class="home-thoughts-ponders">
+            <a href="/ponders/<%= ponder.id %>">
+              <h3><%= ponder.title %></h3>
+              <p><%= ponder.content %></p>
+              <small><em>By: <%= ponder.user.nickname %></em></small>
+            </a>
             <% if (ponder.user.id === userId) { %>
-              <form action="/ponders/<%= ponder.id %>?_method=DELETE" method="post">
+              <form action="/ponders/<%= ponder.id %>?_method=DELETE" method="post" class="delete-button">
                 <input type="submit" value="Delete ponder">
               </form>
             <% } %>
