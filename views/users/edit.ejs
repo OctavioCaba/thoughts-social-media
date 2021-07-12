@@ -1,0 +1,39 @@
+<%- include("../includes/header") %>
+
+<div class="login-register-container">
+  <div class="login-container">
+    <h1>Update your data</h1>
+
+    <form action="/users/<%= user.id %>/edit" method="post">
+      <input type="text" name="name" id="name" value="<%= user.name %>" placeholder="Name" autofocus required>
+        <br />
+        <input type="text" name="nickname" id="nickname" value="<%= user.nickname%>" placeholder="Nickname" required>
+        <br />
+        <input type="email" name="email" id="email" value="<%= user.email %>" placeholder="Email" required>
+        <br />
+        <input type="password" name="old_password" id="old_password" placeholder="Write your old password" required>
+        <br />
+        <input type="password" name="new_password" id="new_password" placeholder="New password" required>
+        <br />
+        <input type="password" name="repeat_new_password" id="repeat_new_password" placeholder="Repeat your new password" required>
+        <br />
+      <input type="submit" value="Update data">
+
+      <% if (typeof message !== 'undefined') { %>
+        <p class="error-message"><%= message %></p>
+      <% } %>
+    </form>
+
+    <p>
+      <a href="/users/<%= user.id %>">Cancel</a>
+    </p>
+
+    <p>
+      <form action="/users/<%= user.id %>?_method=DELETE" method="post">
+        <input type="submit" value="Delete profile" class="delete-profile-button">
+      </form>
+    </p>
+  </div>
+</div>
+
+<%- include("../includes/footer") %>

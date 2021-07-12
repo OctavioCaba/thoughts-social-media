@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const findUserMiddleware = require('./middlewares/findUser');
 const authUserMiddleware = require('./middlewares/authUser');
+const notFoundPageMiddleware = require('./middlewares/notFoundPage');
 const homeRoutes = require('./routes/home_routes');
 const usersRoutes = require('./routes/users_routes');
 const thoughtsRoutes = require('./routes/thoughts_routes');
@@ -42,5 +43,7 @@ app.use(usersRoutes);
 app.use(thoughtsRoutes);
 app.use(pondersRoutes);
 app.use(homeRoutes);
+
+app.use(notFoundPageMiddleware);
 
 app.listen(process.env.PORT, () => console.log(`Running on ${process.env.PORT} port`));

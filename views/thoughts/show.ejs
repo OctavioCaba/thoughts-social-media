@@ -2,16 +2,21 @@
 <%- include("../includes/sidebar") %>
 
 <div class="container">
-  <!-- <i class="fas fa-cloud"></i> -->
   <div class="thought-detail">
     <p><%= thought.content %></p>
     <div class="detail-footer">
       <small class="author"><em>
-        By: <a href="#"><%= thought.user.nickname %></a>
+        By: <a href="/users/<%= thought.user.id %>"><%= thought.user.nickname %></a>
       </em></small>
       <small>Thought <%= thoughtCreatedAt %></small>
     </div>
   </div>
+
+  <% if (userId === thought.user.id) { %>
+    <form action="/thoughts/<%= thought.id %>?_method=DELETE" method="post" class="thought-detail-delete-button">
+      <input type="submit" value="Delete thought">
+    </form>
+  <% } %>
 
   <hr />
 
@@ -41,7 +46,7 @@
       <% for(let i = 0; i < comments.length; i++) { %>
         <div class="each-comment">
           <p>
-            <strong><%= comments[i].user.name %></strong>: <%= comments[i].content %> - <%= commentsCreatedAt[i] %>
+            <a href="/users/<%= comments[i].user.id %>"><strong><%= comments[i].user.name %></strong></a>: <%= comments[i].content %> - <%= commentsCreatedAt[i] %>
           </p>
           <% if (comments[i].user.id === userId) { %>
             <form action="/thoughts/<%= thought.id %>/comment/<%= comments[i].id %>?_method=DELETE" method="post" class="delete-comment-button">

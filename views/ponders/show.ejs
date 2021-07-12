@@ -7,11 +7,17 @@
     <p><%= ponder.content %></p>
     <div class="detail-footer">
       <small class="author"><em>
-        By: <a href="#"><%= ponder.user.nickname %></a>
+        By: <a href="/users/<%= ponder.user.id %>"><%= ponder.user.nickname %></a>
       </em></small>
       <small>Pondered <%= ponderCreatedAt %></small>
     </div>
   </div>
+
+  <% if (userId === ponder.user.id) { %>
+    <form action="/ponders/<%= ponder.id %>?_method=DELETE" method="post" class="thought-detail-delete-button">
+      <input type="submit" value="Delete ponder">
+    </form>
+  <% } %>
 
   <hr />
 
@@ -41,7 +47,7 @@
       <% for(let i = 0; i < comments.length; i++) { %>
         <div class="each-comment">
           <p>
-            <strong><%= comments[i].user.name %></strong><small>@<%= comments[i].user.nickname %></small>: <%= comments[i].content %> - <%= commentsCreatedAt[i] %>
+            <a href="/users/<%= comments[i].user.id %>"><strong><%= comments[i].user.name %></strong></a>: <%= comments[i].content %> - <%= commentsCreatedAt[i] %>
           </p>
           <% if (comments[i].user.id === userId) { %>
             <form action="/ponders/<%= ponder.id %>/comment/<%= comments[i].id %>?_method=DELETE" method="post" class="delete-comment-button">

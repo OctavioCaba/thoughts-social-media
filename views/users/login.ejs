@@ -9,6 +9,9 @@
       <input type="password" name="password" id="password" placeholder="Password" required>
       <br />
       <input type="submit" value="Login">
+      <% if (typeof message !== 'undefined') { %>
+        <p class="error-message"><%= message %></p>
+      <% } %>
     </form>
     <small>or</small>
     <p>

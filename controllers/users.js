@@ -1,4 +1,5 @@
 const User = require('../models').User;
+const bcrypt = require('bcrypt');
 
 module.exports = {
   new: function(req, res) {
@@ -16,11 +17,55 @@ module.exports = {
       User.login(req.body.email, req.body.password).then(user => {
         if (user) {
           req.session.userId = user.id;
-          res.redirect('/');
+          res.redirect(`/users/${user.id}`);
         } else {
           res.send('Wrong credentials');
         }
       }).catch(err => console.error(err));
+    }).catch(err => console.log(err));
+  },
+  showProfile: function(req, res) {
+    User.findByPk(req.params.id, { include: ['thoughts', 'ponders'] }).then(userFound => {
+      res.render('users/show', { user: req.user, userFound, title: userFound.name });
+    }).catch(err => console.log(err));
+  },
+  showEditProfile: function(req, res) {
+    User.findByPk(req.params.id).then(userFound => {
+      res.render('users/edit', { user: req.user, userFound, title: `Edit ${userFound.name}'s profile` });
+    }).catch(err => console.log(err));
+  },
+  editProfile: function(req, res) {
+    User.findOne({
+      where: {
+        email: req.body.email
+      }
+    }).then(userFound => {
+      if ((userFound.dataValues.id === req.session.userId) && (req.body.new_password === req.body.repeat_new_password)) {
+        bcrypt.compare(req.body.old_password, userFound.dataValues.password_hash, (err, valid) => {
+          if (err) return err;
+
+          if (valid) {
+            bcrypt.hash(req.body.new_password, 10, (err, hash) => {
+              if (err) return err;
+
+              User.update({
+                name: req.body.name,
+                nickname: req.body.nickname,
+                email: req.body.email,
+                password_hash: hash
+              }, {
+                where: {
+                  id: req.user.id
+                }
+              }).then(() => res.redirect(`/users/${req.user.id}`)).catch(err => console.log(err));
+            });
+          } else {
+            res.render('users/edit', { user: req.user, userFound, title: `Edit ${userFound.name}'s profile`, message: 'Wrong credentials' });
+          }
+        });
+      } else {
+        res.render('users/edit', { user: req.user, userFound, title: `Edit ${userFound.name}'s profile`, message: 'Wrong credentials' });
+      }
     }).catch(err => console.log(err));
   },
   showLogin: function(req, res) {
@@ -30,14 +75,24 @@ module.exports = {
   },
   login: function(req, res) {
     User.login(req.body.email, req.body.password).then(user => {
-
       if (user) {
         req.session.userId = user.id;
         res.redirect('/');
       } else {
-        res.send('<h1>No se pudo crear</h1>');
+        res.render('users/login', { title: 'Login', message: 'Wrong credentials' });
       }
     }).catch(err => console.error(err));
+  },
+  destroyUser: function(req, res) {
+    User.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(() => {
+      req.session.destroy(function() {
+        res.redirect('/users/sessions/login');
+      });
+    }).catch(err => console.log(err));
   },
   destroySession: function(req, res) {
     req.session.destroy(function() {

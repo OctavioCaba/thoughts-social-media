@@ -9,22 +9,16 @@ module.exports = {
   index: function(req, res) {
     Ponder.findAll({ include: [{ association: 'user' }] }).then(ponders => {
       res.render('ponders/index', { ponders, userId: req.session.userId, title: 'Ponders', user: req.user });
-    }).catch(err => {
-      res.json(err);
-      console.log(err);
-    });
+    }).catch(err => console.log(err));
   },
   create: function(req, res) {
     Ponder.create({
       userId: req.session.userId,
       title: req.body.title,
       content: req.body.content
-    }).then(() => {
-      res.redirect('/ponders');
-    }).catch(err => {
-      res.json(err);
-      console.log(err);
-    });
+    }).then(ponderCreated => {
+      res.redirect(`/ponders/${ponderCreated.id}`);
+    }).catch(err => console.log(err));
   },
   show: function(req, res) {
     let relativeCommentTimeArray = [];
@@ -50,7 +44,7 @@ module.exports = {
             ponder,
             ponderCreatedAt: relativePonderTime,
             userId: req.session.userId,
-            title: 'Ponder',
+            title: `${ponder.title} - ${ponder.user.name}`,
             user: req.user,
             likes,
             comments,
@@ -61,13 +55,20 @@ module.exports = {
     }).catch(err => console.log(err));
   },
   destroy: function(req, res) {
+    PonderComments.destroy({
+      where: {
+        ponderId: req.params.id
+      }
+    }).catch(err => console.log(err));
+    PonderLikes.destroy({
+      where: {
+        ponderId: req.params.id
+      }
+    }).catch(err => console.log(err));
     Ponder.destroy({
       where: {
         id: req.params.id
       }
-    }).then(() => res.redirect('/ponders')).catch(err => {
-      res.json(err);
-      console.log(err);
-    });
+    }).then(() => res.redirect('/ponders')).catch(err => console.log(err));
   }
 };

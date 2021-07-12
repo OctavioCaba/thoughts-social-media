@@ -41,7 +41,7 @@ module.exports = {
             thought,
             thoughtCreatedAt: relativeThoughtTime,
             userId: req.session.userId,
-            title: 'Thought',
+            title: `${thought.content} - ${thought.user.name}`,
             user: req.user,
             comments,
             likes,
@@ -51,14 +51,21 @@ module.exports = {
       }).catch(err => console.log(err));
     }).catch(err => console.log(err));
   },
-  destroy: function(req, res) {
+  destroy: function(req, res, next) {
+    ThoughtComments.destroy({
+      where: {
+        thoughtId: req.params.id
+      }
+    }).catch(err => console.log(err));
+    ThoughtLikes.destroy({
+      where: {
+        thoughtId: req.params.id
+      }
+    }).catch(err => console.log(err));
     Thought.destroy({
       where: {
         id: req.params.id
       }
-    }).then(() => res.redirect('/thoughts')).catch(err => {
-      res.json(err);
-      console.log(err);
-    });
+    }).then(() => res.redirect('/thoughts')).catch(err => console.log(err));
   }
 };

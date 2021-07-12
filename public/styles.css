@@ -14,7 +14,6 @@ body {
   font-family: 'Poppins', 'Roboto Mono', 'Noto Sans JP', sans-serif, monospace;
   text-align: center;
   color: #fff;
-  height: 120vh;
 }
 
 a {
@@ -27,12 +26,14 @@ a:hover {
 }
 
 .sidebar {
-  border-right: 1px solid #fff;
   width: 15%;
   min-height: 100vh;
   position: fixed;
   left: 0;
   text-align: left;
+  background: rgb(0, 4, 40);
+  background: linear-gradient(180deg, rgba(0, 4, 40, 1) 0%, rgba(0, 78, 146, 1) 100%);
+  border-right: 5px solid #fff;
 }
 
 .sidebar ul {
@@ -51,8 +52,11 @@ a:hover {
 
 .container {
   position: absolute;
+  min-height: 100%;
   right: 0;
   width: 85%;
+  background: rgb(0, 4, 40);
+  background: linear-gradient(180deg, rgba(0, 4, 40, 1) 0%, rgba(0, 78, 146, 1) 100%);
 }
 
 .container ul {
@@ -106,7 +110,8 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.4);
   align-items: center;
   margin: 10px auto;
-  padding: 10px 0;
+  padding: 10px;
+  border-radius: 15px;
   margin-bottom: 20px;
   position: relative;
 }
@@ -208,18 +213,30 @@ a:hover {
   font-size: 19px;
 }
 
-/* i {
-  font-size: 12em;
-  left: 0;
-  width: 100%;
-  z-index: -1;
-  position: absolute;
-  color: rgba(255, 255, 255, 0.4);
-  top: 0;
-} */
-
 .thought-detail h3 {
   margin-bottom: 20px;
+}
+
+.thought-detail-delete-button {
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+.thought-detail-delete-button input {
+  border: 2px solid rgb(153, 15, 15);
+  background-color: rgba(153, 15, 15, 0.2);
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.thought-detail-delete-button input:hover {
+  border: 2px solid rgb(212, 16, 16);
+  background-color: rgba(153, 15, 15, 0.6);
 }
 
 .thought-likes {
@@ -300,6 +317,61 @@ a:hover {
   color: #000;
 }
 
+/* USER PROFILE */
+.user-profile {
+  padding-top: 20px;
+}
+
+.profile-show-thoughts {
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgba(255, 255, 255, 0.4);
+  text-align: left;
+  border-radius: 15px;
+}
+
+.profile-show-thoughts h4 {
+  text-align: center;
+}
+
+.profile-thoughts-list,
+.profile-ponders-list {
+  padding: 10px;
+}
+
+.profile-thoughts-list li,
+.profile-ponders-list li {
+  margin: 10px 0;
+  border-bottom: 1px solid #999;
+}
+
+.profile-thoughts-list {
+  border-right: 2px solid #999;
+}
+
+.profile-ponders-list {
+  border-left: 2px solid #999;
+}
+
+.edit-profile-button {
+  margin-top: 20px;
+}
+
+.delete-profile-button {
+  border: 3px solid rgb(153, 15, 15) !important;
+  background-color: rgb(153, 15, 15);
+  color: #fff !important;
+  width: 17% !important;
+  font-size: 12px !important;
+}
+
+.delete-profile-button:hover {
+  background-color: rgb(212, 16, 16) !important;
+}
+
 /* LOGIN REGISTER FROM */
 .login-register-container {
   font-size: 14px;
@@ -372,4 +444,27 @@ a:hover {
 
 .logout-form input:hover {
   background-color: rgba(255, 255, 255, 0.9);
+}
+
+.error-message {
+  margin-top: 15px;
+  color: #fff;
+  background-color: rgb(153, 15, 15);
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* NOT FOUND PAGE */
+.not-found-container {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.not-found-container h2 {
+  align-items: baseline;
+}
+
+.not-found-container i {
+  font-size: 36px;
 }

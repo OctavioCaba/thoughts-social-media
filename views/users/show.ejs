@@ -1,0 +1,30 @@
+<%- include("../includes/header") %>
+<%- include("../includes/sidebar") %>
+
+<div class="container user-profile">
+  <h2><%= userFound.name %> @<small><%= userFound.nickname %></small></h2>
+  <small><%= userFound.email %></small>
+
+  <section class="profile-show-thoughts">
+    <ul class="profile-thoughts-list">
+      <li><h4>Thoughts</h4></li>
+      <% userFound.thoughts.forEach(thought => { %>
+        <li><a href="/thoughts/<%= thought.id %>"><%= thought.content %></a></li>
+      <% }) %>
+    </ul>
+    <ul class="profile-ponders-list">
+      <li><h4>Ponders</h4></li>
+      <% userFound.ponders.forEach(ponder => { %>
+        <li><a href="/ponders/<%= ponder.id %>"><%= ponder.title %> - <%= ponder.content %></a></li>
+      <% }) %>
+    </ul>
+  </section>
+
+  <% if (userFound.id === user.id) { %>
+    <section class="edit-profile-button">
+      <a href="/users/<%= userFound.id %>/edit">Editar perfil</a>
+    </section>
+  <% } %>
+</div>
+
+<%- include("../includes/footer") %>

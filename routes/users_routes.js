@@ -8,4 +8,8 @@ router.route('/users/session/login')
       .post(UsersController.login)
       .delete(UsersController.destroySession);
 
+router.route('/users/:id').get(UsersController.showProfile).delete(UsersController.destroyUser);
+
+router.route('/users/:id/edit').get(UsersController.showEditProfile).post(UsersController.editProfile);
+
 module.exports = router;

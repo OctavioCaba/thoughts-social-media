@@ -1,12 +1,3 @@
-<!--
-<form action="/ponders" method="post">
-  <input type="text" name="title" id="title" placeholder="Ponder's title..." required>
-  <br />
-  <textarea name="content" id="content" placeholder="Ponder's body..." required></textarea>
-  <br />
-  <input type="submit" value="Post ponder">
-</form> -->
-
 <%- include("../includes/header") %>
 <%- include("../includes/sidebar") %>
 
@@ -27,7 +18,7 @@
 
   <button id="newthought-form-opener" class="newthought-form-opener">New ponder</button>
   <section id="new-ponder-section" class="new-thought-section no-show">
-    <form action="/thoughts" method="post">
+    <form action="/ponders" method="post">
       <input type="text" name="title" id="title" placeholder="Ponder's title..." required>
       <br />
       <textarea name="content" id="content" cols="30" rows="5" placeholder="Ponder's body..." required></textarea>
