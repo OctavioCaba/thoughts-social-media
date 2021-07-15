@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+const SequelizeSlugify = require('sequelize-slugify');
 
 module.exports = (sequelize, DataTypes) => {
   class Thought extends Model {
@@ -14,10 +15,21 @@ module.exports = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.STRING(1000),
       allowNull: false
+    },
+    slug: {
+      type: DataTypes.STRING,
+      unique: true
     }
   }, {
     sequelize,
     modelName: 'Thought',
+  });
+
+  SequelizeSlugify.slugifyModel(Thought, {
+    source: ['content'],
+    slugOptions: { lower: true },
+    overwrite: false,
+    column: 'slug'
   });
 
   return Thought;

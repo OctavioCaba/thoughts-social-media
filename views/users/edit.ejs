@@ -4,7 +4,7 @@
   <div class="login-container">
     <h1>Update your data</h1>
 
-    <form action="/users/<%= user.id %>/edit" method="post">
+    <form action="/users/<%= user.nickname %>/edit" method="post">
       <input type="text" name="name" id="name" value="<%= user.name %>" placeholder="Name" autofocus required>
         <br />
         <input type="text" name="nickname" id="nickname" value="<%= user.nickname%>" placeholder="Nickname" required>
@@ -25,11 +25,11 @@
     </form>
 
     <p>
-      <a href="/users/<%= user.id %>">Cancel</a>
+      <a href="/users/<%= user.nickname %>">Cancel</a>
     </p>
 
     <p>
-      <form action="/users/<%= user.id %>?_method=DELETE" method="post">
+      <form action="/users/<%= user.nickname %>?_method=DELETE" method="post">
         <input type="submit" value="Delete profile" class="delete-profile-button">
       </form>
     </p>

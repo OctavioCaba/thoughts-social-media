@@ -20,7 +20,7 @@
       <ul>
         <% thoughts.forEach(thought => { %>
           <li class="home-thoughts-ponders">
-            <a href="/thoughts/<%= thought.id %>">
+            <a href="/thoughts/<%= thought.slug %>">
               <p><%= thought.content %></p>
             </a>
           </li>
@@ -31,7 +31,7 @@
       <ul>
         <% ponders.forEach(ponder => { %>
           <li class="home-thoughts-ponders">
-            <a href="/ponders/<%= ponder.id %>">
+            <a href="/ponders/<%= ponder.slug %>">
               <h4><%= ponder.title %></h4>
               <p><%= ponder.content %></p>
             </a>

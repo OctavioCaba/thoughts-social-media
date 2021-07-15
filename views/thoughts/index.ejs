@@ -30,12 +30,12 @@
       <ul>
         <% thoughts.forEach(thought => { %>
           <li class="home-thoughts-ponders">
-            <a href="/thoughts/<%= thought.id %>">
+            <a href="/thoughts/<%= thought.slug %>">
               <p><%= thought.content %></p>
               <small><em>By: <%= thought.user.nickname %></em></small>
             </a>
             <% if (userId === thought.user.id) { %>
-              <form action="/thoughts/<%= thought.id %>?_method=DELETE" method="post" class="delete-button">
+              <form action="/thoughts/<%= thought.slug %>?_method=DELETE" method="post" class="delete-button">
                 <input type="submit" value="Delete thought">
               </form>
             <% } %>

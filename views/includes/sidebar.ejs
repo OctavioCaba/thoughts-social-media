@@ -3,7 +3,7 @@
     <li><a href="/">Home</a></li>
     <li><a href="/thoughts">Thoughts</a></li>
     <li><a href="/ponders">Ponders</a></li>
-    <li><a href="/users/<%= user.id %>"><%= user.name %></a></li>
+    <li><a href="/users/<%= user.nickname %>"><%= user.name %></a></li>
     <li>
       <p>
         <form action="/users/session/login?_method=DELETE" class="logout-form" method="post">

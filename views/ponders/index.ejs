@@ -32,13 +32,13 @@
       <ul>
         <% ponders.forEach(ponder => { %>
           <li class="home-thoughts-ponders">
-            <a href="/ponders/<%= ponder.id %>">
+            <a href="/ponders/<%= ponder.slug %>">
               <h3><%= ponder.title %></h3>
               <p><%= ponder.content %></p>
               <small><em>By: <%= ponder.user.nickname %></em></small>
             </a>
             <% if (ponder.user.id === userId) { %>
-              <form action="/ponders/<%= ponder.id %>?_method=DELETE" method="post" class="delete-button">
+              <form action="/ponders/<%= ponder.slug %>?_method=DELETE" method="post" class="delete-button">
                 <input type="submit" value="Delete ponder">
               </form>
             <% } %>

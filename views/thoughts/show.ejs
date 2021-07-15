@@ -6,14 +6,14 @@
     <p><%= thought.content %></p>
     <div class="detail-footer">
       <small class="author"><em>
-        By: <a href="/users/<%= thought.user.id %>"><%= thought.user.nickname %></a>
+        By: <a href="/users/<%= thought.user.nickname %>"><%= thought.user.nickname %></a>
       </em></small>
       <small>Thought <%= thoughtCreatedAt %></small>
     </div>
   </div>
 
   <% if (userId === thought.user.id) { %>
-    <form action="/thoughts/<%= thought.id %>?_method=DELETE" method="post" class="thought-detail-delete-button">
+    <form action="/thoughts/<%= thought.slug %>?_method=DELETE" method="post" class="thought-detail-delete-button">
       <input type="submit" value="Delete thought">
     </form>
   <% } %>
@@ -31,10 +31,10 @@
     <% }) %>
 
     <% if (userLike) { %>
-      <i class="fas fa-heart" data-page-name="thoughts" data-thought-id="<%= thought.id %>" data-like-id="<%= likeId %>" id="fa-heart"></i>
+      <i class="fas fa-heart" data-page-name="thoughts" data-thought-id="<%= thought.slug %>" data-like-id="<%= likeId %>" id="fa-heart"></i>
       <small>You liked it</small>
     <% } else { %>
-      <i class="far fa-heart" data-page-name="thoughts" data-thought-id="<%= thought.id %>" id="fa-heart"></i>
+      <i class="far fa-heart" data-page-name="thoughts" data-thought-id="<%= thought.slug %>" id="fa-heart"></i>
     <% } %>
     <br />
     <span>Likes (<%= likes.length %>)</span>
@@ -46,10 +46,10 @@
       <% for(let i = 0; i < comments.length; i++) { %>
         <div class="each-comment">
           <p>
-            <a href="/users/<%= comments[i].user.id %>"><strong><%= comments[i].user.name %></strong></a>: <%= comments[i].content %> - <%= commentsCreatedAt[i] %>
+            <a href="/users/<%= comments[i].user.nickname %>"><strong><%= comments[i].user.name %></strong></a>: <%= comments[i].content %> - <%= commentsCreatedAt[i] %>
           </p>
           <% if (comments[i].user.id === userId) { %>
-            <form action="/thoughts/<%= thought.id %>/comment/<%= comments[i].id %>?_method=DELETE" method="post" class="delete-comment-button">
+            <form action="/thoughts/<%= thought.slug %>/comment/<%= comments[i].id %>?_method=DELETE" method="post" class="delete-comment-button">
               <input type="hidden" name="comment_id" value="<%= comments[i].id %>">
               <input type="submit" value="Delete comment">
             </form>
@@ -60,7 +60,7 @@
   </section>
 
   <section class="make-comment">
-    <form action="/thoughts/<%= thought.id %>" method="post">
+    <form action="/thoughts/<%= thought.slug %>" method="post">
       <input type="text" class="comment-input" name="comment_input" id="comment_input" placeholder="Write a comment..." required>
       <input type="submit" class="comment-post-button" value="Post comment">
     </form>

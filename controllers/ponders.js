@@ -23,16 +23,19 @@ module.exports = {
   show: function(req, res) {
     let relativeCommentTimeArray = [];
 
-    Ponder.findByPk(req.params.id, { include: 'user' }).then(ponder => {
+    Ponder.findOne({
+      where: { slug: req.params.slug },
+      include: 'user'
+    }).then(ponder => {
       let relativePonderTime = moment(getDateWithoutTime(ponder.createdAt)).fromNow();
 
       PonderLikes.findAll({
-        where: { ponderId: req.params.id },
+        where: { ponderId: ponder.id },
         include: 'user'
       }).then(likes => {
 
         PonderComments.findAll({
-          where: { ponderId: req.params.id },
+          where: { ponderId: ponder.id },
           include: 'user'
         }).then(comments => {
           comments.forEach(comment => {
@@ -55,19 +58,25 @@ module.exports = {
     }).catch(err => console.log(err));
   },
   destroy: function(req, res) {
-    PonderComments.destroy({
+    Ponder.findOne({
       where: {
-        ponderId: req.params.id
+        slug: req.params.slug
       }
-    }).catch(err => console.log(err));
-    PonderLikes.destroy({
-      where: {
-        ponderId: req.params.id
-      }
+    }).then(ponder => {
+      PonderComments.destroy({
+        where: {
+          ponderId: ponder.id
+        }
+      }).catch(err => console.log(err));
+      PonderLikes.destroy({
+        where: {
+          ponderId: ponder.id
+        }
+      }).catch(err => console.log(err));
     }).catch(err => console.log(err));
     Ponder.destroy({
       where: {
-        id: req.params.id
+        slug: req.params.slug
       }
     }).then(() => res.redirect('/ponders')).catch(err => console.log(err));
   }

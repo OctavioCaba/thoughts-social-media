@@ -20,16 +20,21 @@ module.exports = {
   show: function(req, res) {
     let relativeCommentTimeArray = [];
 
-    Thought.findByPk(req.params.id, { include: 'user' }).then(thought => {
+    Thought.findOne({
+      where: {
+        slug: req.params.slug
+      },
+      include: 'user'
+    }).then(thought => {
       let relativeThoughtTime = moment(getDateWithoutTime(thought.createdAt)).fromNow();
 
       ThoughtLikes.findAll({
-        where: { thoughtId: req.params.id },
+        where: { thoughtId: thought.id },
         include: 'user'
       }).then(likes => {
 
         ThoughtComments.findAll({
-          where: { thoughtId: req.params.id },
+          where: { thoughtId: thought.id },
           include: 'user'
         }).then(comments => {
           comments.forEach(comment => {
