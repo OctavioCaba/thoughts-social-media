@@ -3,8 +3,6 @@ const PonderComments = require('../models').PonderComments;
 const PonderLikes = require('../models').PonderLikes;
 const moment = require('moment');
 
-const getDateWithoutTime = date => moment(date).format('YYYY-MM-DD');
-
 module.exports = {
   index: function(req, res) {
     Ponder.findAll({ include: [{ association: 'user' }] }).then(ponders => {
@@ -17,7 +15,7 @@ module.exports = {
       title: req.body.title,
       content: req.body.content
     }).then(ponderCreated => {
-      res.redirect(`/ponders/${ponderCreated.id}`);
+      res.redirect(`/ponders/${ponderCreated.slug}`);
     }).catch(err => console.log(err));
   },
   show: function(req, res) {
@@ -27,7 +25,7 @@ module.exports = {
       where: { slug: req.params.slug },
       include: 'user'
     }).then(ponder => {
-      let relativePonderTime = moment(getDateWithoutTime(ponder.createdAt)).fromNow();
+      let relativePonderTime = moment(ponder.createdAt).fromNow();
 
       PonderLikes.findAll({
         where: { ponderId: ponder.id },
@@ -39,7 +37,7 @@ module.exports = {
           include: 'user'
         }).then(comments => {
           comments.forEach(comment => {
-            let relativeCommentTime = moment(getDateWithoutTime(comment.createdAt)).fromNow();
+            let relativeCommentTime = moment(comment.createdAt).fromNow();
             relativeCommentTimeArray.push(relativeCommentTime);
           });
 

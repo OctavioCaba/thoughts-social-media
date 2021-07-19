@@ -3,8 +3,6 @@ const ThoughtComments = require('../models').ThoughtComments;
 const ThoughtLikes = require('../models').ThoughtLikes;
 const moment = require('moment');
 
-const getDateWithoutTime = date => moment(date).format('YYYY-MM-DD');
-
 module.exports = {
   index: function(req, res) {
     Thought.findAll({ include: [{ association: 'user' }] }).then(thoughts => {
@@ -15,7 +13,7 @@ module.exports = {
     Thought.create({
       content: req.body.content,
       userId: req.session.userId
-    }).then(result => res.redirect(`/thoughts/${result.id}`)).catch(err => res.json(err));
+    }).then(result => res.redirect(`/thoughts/${result.slug}`)).catch(err => res.json(err));
   },
   show: function(req, res) {
     let relativeCommentTimeArray = [];
@@ -26,7 +24,7 @@ module.exports = {
       },
       include: 'user'
     }).then(thought => {
-      let relativeThoughtTime = moment(getDateWithoutTime(thought.createdAt)).fromNow();
+      let relativeThoughtTime = moment(thought.createdAt).fromNow();
 
       ThoughtLikes.findAll({
         where: { thoughtId: thought.id },
@@ -38,7 +36,7 @@ module.exports = {
           include: 'user'
         }).then(comments => {
           comments.forEach(comment => {
-            let relativeCommentTime = moment(getDateWithoutTime(comment.createdAt)).fromNow();
+            let relativeCommentTime = moment(comment.createdAt).fromNow();
             relativeCommentTimeArray.push(relativeCommentTime);
           });
 
